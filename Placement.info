@@ -1,5 +1,5 @@
 ﻿<Placement>
     <Match DisplayType="SummaryAdmin">
-        <Place Parts_ManageVersions_SummaryAdmin="Meta:0.1"/>
+        <Place Parts_Versions_SummaryAdmin="Meta:0.1"/>
     </Match>
 </Placement>

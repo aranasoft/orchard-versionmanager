@@ -27,7 +27,7 @@
      </div>
     </div>
     <div class="related">
-     @Html.Link(T("Undelete").Text, Url.Action("Undelete", "Admin", new { area = "Iroo.ManageVersions", id = item.VersionRecord.Id }))
+     @Html.Link(T("Undelete").Text, Url.Action("Undelete", "Admin", new { area = "Iroo.VersionManager", id = item.VersionRecord.Id }))
      &nbsp;&#124;&nbsp;
      @Html.Link(T("View").Text, Url.Action("Preview", "Item", new { area = "Contents", id = item.Id, version = item.Version}))
     </div>

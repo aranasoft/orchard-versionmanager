@@ -39,20 +39,20 @@
       <ul class="pageStatus">
        <li>
          @if (item.VersionRecord.Published) {
-          <img class="icon" src="@Href("~/Modules/Iroo.ManageVersions/Content/Admin/images/check.gif")" alt="@T("Published version")" title="@T("This is the published versions")" />
+          <img class="icon" src="@Href("~/Modules/Iroo.VersionManager/Content/Admin/images/check.gif")" alt="@T("Published version")" title="@T("This is the published versions")" />
          }
          @if (!item.VersionRecord.Published) {
-          <img class="icon" src="@Href("~/Modules/Iroo.ManageVersions/Content/Admin/images/uncheck.gif")" alt="@T("Published version")" title="@T("This is the published versions")" />
+          <img class="icon" src="@Href("~/Modules/Iroo.VersionManager/Content/Admin/images/uncheck.gif")" alt="@T("Published version")" title="@T("This is the published versions")" />
          }
          Published
          &nbsp;&#124;&nbsp;
        </li>
        <li>
          @if (item.VersionRecord.Latest) {
-          <img class="icon" src="@Href("~/Modules/Iroo.ManageVersions/Content/Admin/images/check.gif")" alt="@T("Latest version")" title="@T("This is the published versions")" />
+          <img class="icon" src="@Href("~/Modules/Iroo.VersionManager/Content/Admin/images/check.gif")" alt="@T("Latest version")" title="@T("This is the published versions")" />
          }
          @if (!item.VersionRecord.Latest) {
-          <img class="icon" src="@Href("~/Modules/Iroo.ManageVersions/Content/Admin/images/uncheck.gif")" alt="@T("Latest version")" title="@T("This is the published versions")" />
+          <img class="icon" src="@Href("~/Modules/Iroo.VersionManager/Content/Admin/images/uncheck.gif")" alt="@T("Latest version")" title="@T("This is the published versions")" />
          }
          Latest
          
@@ -62,15 +62,15 @@
     </div>
     <div class="related">
      @if (item.VersionRecord.Published) {
-       @Html.Link(T("Unpublish").Text, Url.Action("UnsetPublishedVersion", "Admin", new { area = "Iroo.ManageVersions", id = item.VersionRecord.Id }));
+       @Html.Link(T("Unpublish").Text, Url.Action("UnsetPublishedVersion", "Admin", new { area = "Iroo.VersionManager", id = item.VersionRecord.Id }));
        <text>&nbsp;&#124;&nbsp;</text>
      }
      @if (!item.VersionRecord.Published) {
-       @Html.Link(T("Publish").Text, Url.Action("SetPublishedVersion", "Admin", new { area = "Iroo.ManageVersions", id = item.VersionRecord.Id }));
+       @Html.Link(T("Publish").Text, Url.Action("SetPublishedVersion", "Admin", new { area = "Iroo.VersionManager", id = item.VersionRecord.Id }));
        <text>&nbsp;&#124;&nbsp;</text>
      }
      @if (item.VersionRecord.Latest) {
-       @Html.Link(T("Remove").Text, Url.Action("Delete", "Admin", new { area = "Iroo.ManageVersions", id = item.VersionRecord.Id }));
+       @Html.Link(T("Remove").Text, Url.Action("Delete", "Admin", new { area = "Iroo.VersionManager", id = item.VersionRecord.Id }));
        <text>&nbsp;&#124;&nbsp;</text>
      }
      @Html.Link(T("View").Text, Url.Action("Preview", "Item", new { area = "Contents", id = item.Id, version = item.Version}))

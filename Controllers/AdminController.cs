@@ -7,7 +7,7 @@ using Orchard.Localization;
 using Orchard.Logging;
 using Orchard.UI.Notify;
 
-namespace Iroo.ManageVersions.Controllers {
+namespace Iroo.VersionManager.Controllers {
     public class AdminController : Controller {
         public AdminController(IOrchardServices services, IShapeFactory shapeFactory) {
             Services = services;
