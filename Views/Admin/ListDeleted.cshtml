@@ -2,12 +2,12 @@
 @using Orchard.ContentManagement.Records;
 @model IEnumerable<ContentItem>
 @{
-    var pageTitle = T("List of deleted content items");
+    var pageTitle = T("Recycle Bin");
 }
 
 <h1>@Html.TitleForPage(pageTitle)</h1>
 
-<p>There are @Model.Count() deleted content items.</p>
+<p>@T("There is a total of {0} deleted content items.", Model.Count())</p>
 
 <fieldset class="contentItems bulk-items">
 <ul>
@@ -16,7 +16,7 @@
   <div class="summary" itemscope="itemscope" itemid="@item.Id" itemtype="http://orchardproject.net/data/ContentItem">
    <div class="primary">
     <div class="properties">
-     <h3>Item @item.Id</h3>
+     <h3>@T("Item id {0} of type \"{1}\"", item.Id, (item.TypeDefinition.DisplayName ?? item.ContentType))</h3>
      <div class="metadata">
       <ul class="pageStatus">
        <li>

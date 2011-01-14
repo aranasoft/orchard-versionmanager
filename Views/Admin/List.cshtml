@@ -23,9 +23,9 @@
 
 <h1>@Html.TitleForPage(pageTitle)</h1>
 
-<p>There are @Model.Count() versions of the content item.</p>
-<p>Parts that have multiple versions: @string.Join(", ", contentItem.Parts.Where(p => IsPartVersionable(p)).Select(p => p.PartDefinition.Name).OrderBy(s => s)) </p>
-<p>Parts that have a single version: @string.Join(", ", contentItem.Parts.Where(p => !IsPartVersionable(p)).Select(p => p.PartDefinition.Name).OrderBy(s => s)) </p>
+<p>@T("There is a total of {0} versions of the content item.", Model.Count())</p>
+<p>@T("Parts that have multiple versions: {0}", string.Join(", ", contentItem.Parts.Where(p => IsPartVersionable(p)).Select(p => p.PartDefinition.Name).OrderBy(s => s)))</p>
+<p>@T("Parts that have a single version: {0}", string.Join(", ", contentItem.Parts.Where(p => !IsPartVersionable(p)).Select(p => p.PartDefinition.Name).OrderBy(s => s))) </p>
 
 <fieldset class="contentItems bulk-items">
 <ul>
@@ -34,7 +34,7 @@
   <div class="summary" itemscope="itemscope" itemid="@contentItem.Id" itemtype="http://orchardproject.net/data/ContentItem">
    <div class="primary">
     <div class="properties">
-     <h3>Version @item.Version</h3>&nbsp;&nbsp;(Version Record Id: @item.VersionRecord.Id)
+     <h3>@T("Version {0}", item.Version)</h3>&nbsp;&nbsp;@T("(Version Record Id: {0})", item.VersionRecord.Id)
      <div class="metadata">
       <ul class="pageStatus">
        <li>
