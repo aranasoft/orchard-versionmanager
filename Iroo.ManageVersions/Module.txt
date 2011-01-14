@@ -1,0 +1,10 @@
+Name: Manage Versions
+AntiForgery: enabled
+Author: Renaud Paquay
+Website: http://orchardproject.net
+Version: 0.9.0
+OrchardVersion: 0.9.0
+Description: Provide admin UI to display the revision history of content items, as well as restore deleted content items.
+Features:
+    Iroo.ManageVersions:
+        Description: Provide admin UI to display the revision history of content items, as well as restore deleted content items.

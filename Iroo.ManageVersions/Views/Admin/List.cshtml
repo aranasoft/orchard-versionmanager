@@ -1,0 +1,83 @@
+﻿@using Orchard.ContentManagement;
+@using Orchard.ContentManagement.Records;
+@model IEnumerable<ContentItem>
+@{
+    var contentItem = Model.First();
+    var pageTitle = T("Manage versions of content item #{0}", contentItem.Id);
+}
+
+@functions {
+    bool IsContentVersionPart(System.Type type) {
+        return
+            type.IsGenericType &&
+            type.GetGenericArguments()[0].IsSubclassOf(typeof(ContentPartVersionRecord));
+    }
+    bool IsPartVersionable(ContentPart part) {
+        for(var type = part.GetType(); type != null; type = type.BaseType) {
+            if (IsContentVersionPart(type))
+                return true;
+        }
+        return false;
+    }
+}
+
+<h1>@Html.TitleForPage(pageTitle)</h1>
+
+<p>There are @Model.Count() versions of the content item.</p>
+<p>Parts that have multiple versions: @string.Join(", ", contentItem.Parts.Where(p => IsPartVersionable(p)).Select(p => p.PartDefinition.Name).OrderBy(s => s)) </p>
+<p>Parts that have a single version: @string.Join(", ", contentItem.Parts.Where(p => !IsPartVersionable(p)).Select(p => p.PartDefinition.Name).OrderBy(s => s)) </p>
+
+<fieldset class="contentItems bulk-items">
+<ul>
+ @foreach(var item in Model) {
+ <li>
+  <div class="summary" itemscope="itemscope" itemid="@contentItem.Id" itemtype="http://orchardproject.net/data/ContentItem">
+   <div class="primary">
+    <div class="properties">
+     <h3>Version @item.Version</h3>&nbsp;&nbsp;(Version Record Id: @item.VersionRecord.Id)
+     <div class="metadata">
+      <ul class="pageStatus">
+       <li>
+         @if (item.VersionRecord.Published) {
+          <img class="icon" src="@Href("~/Modules/Iroo.ManageVersions/Content/Admin/images/check.gif")" alt="@T("Published version")" title="@T("This is the published versions")" />
+         }
+         @if (!item.VersionRecord.Published) {
+          <img class="icon" src="@Href("~/Modules/Iroo.ManageVersions/Content/Admin/images/uncheck.gif")" alt="@T("Published version")" title="@T("This is the published versions")" />
+         }
+         Published
+         &nbsp;&#124;&nbsp;
+       </li>
+       <li>
+         @if (item.VersionRecord.Latest) {
+          <img class="icon" src="@Href("~/Modules/Iroo.ManageVersions/Content/Admin/images/check.gif")" alt="@T("Latest version")" title="@T("This is the published versions")" />
+         }
+         @if (!item.VersionRecord.Latest) {
+          <img class="icon" src="@Href("~/Modules/Iroo.ManageVersions/Content/Admin/images/uncheck.gif")" alt="@T("Latest version")" title="@T("This is the published versions")" />
+         }
+         Latest
+         
+       </li>
+      </ul>
+     </div>
+    </div>
+    <div class="related">
+     @if (item.VersionRecord.Published) {
+       @Html.Link(T("Unpublish").Text, Url.Action("UnsetPublishedVersion", "Admin", new { area = "Iroo.ManageVersions", id = item.VersionRecord.Id }));
+       <text>&nbsp;&#124;&nbsp;</text>
+     }
+     @if (!item.VersionRecord.Published) {
+       @Html.Link(T("Publish").Text, Url.Action("SetPublishedVersion", "Admin", new { area = "Iroo.ManageVersions", id = item.VersionRecord.Id }));
+       <text>&nbsp;&#124;&nbsp;</text>
+     }
+     @if (item.VersionRecord.Latest) {
+       @Html.Link(T("Remove").Text, Url.Action("Delete", "Admin", new { area = "Iroo.ManageVersions", id = item.VersionRecord.Id }));
+       <text>&nbsp;&#124;&nbsp;</text>
+     }
+     @Html.Link(T("View").Text, Url.Action("Preview", "Item", new { area = "Contents", id = item.Id, version = item.Version}))
+    </div>
+   </div>
+  </div>
+ </li>
+ }
+</ul>
+</fieldset>

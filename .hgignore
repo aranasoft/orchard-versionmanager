@@ -1,0 +1,4 @@
+glob:*.orig
+glob:*.user
+glob:bin
+glob:obj
