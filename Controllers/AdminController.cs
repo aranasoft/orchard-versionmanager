@@ -32,8 +32,15 @@ namespace Iroo.VersionManager.Controllers {
 
         public ActionResult ListDeleted() {
             //TODO: This is clearly very inefficient
-            var allItems = Services.ContentManager.Query(VersionOptions.AllVersions).List().GroupBy(item => item.Id);
-            var removedItems = allItems.Where(g => !g.Any(item => item.VersionRecord.Latest)).Select(g => g.OrderBy(item => item.Version).Last());
+            var removedItems = Services.ContentManager
+                // all versions of all content items...
+                .Query(VersionOptions.AllVersions).List()
+                // ... group by content item id
+                .GroupBy(item => item.Id)
+                // ...that don't not have a "Latest" flag set in their list of revisions
+                .Where(g => !g.Any(item => item.VersionRecord.Latest))
+                // ...order by version #
+                .Select(g => g.OrderBy(item => item.Version).Last());
 
             return View(removedItems);
         }
@@ -46,7 +53,7 @@ namespace Iroo.VersionManager.Controllers {
 
             Services.ContentManager.Publish(contentItem);
             Services.Notifier.Add(NotifyType.Information, T("Version {0} of content item published.", contentItem.Version));
-            return RedirectToAction("List", new {contentItem.Id});
+            return RedirectToAction("List", new { contentItem.Id });
         }
 
         public ActionResult UnsetPublishedVersion(int id) {
@@ -74,7 +81,9 @@ namespace Iroo.VersionManager.Controllers {
             if (contentItem == null)
                 return HttpNotFound();
 
+            // Undelete and publish 
             contentItem.VersionRecord.Latest = true;
+            contentItem.VersionRecord.Published = true;
             Services.Notifier.Add(NotifyType.Information, T("Content item {0} has been un-deleted.", contentItem.Id));
             return RedirectToAction("List", new { contentItem.Id });
         }
