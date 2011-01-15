@@ -83,8 +83,8 @@ namespace Iroo.VersionManager.Controllers {
 
             // Undelete and publish 
             contentItem.VersionRecord.Latest = true;
-            contentItem.VersionRecord.Published = true;
-            Services.Notifier.Add(NotifyType.Information, T("Content item {0} has been un-deleted.", contentItem.Id));
+            Services.ContentManager.Publish(contentItem);
+            Services.Notifier.Add(NotifyType.Information, T("Content item {0} has been un-deleted and re-published.", contentItem.Id));
             return RedirectToAction("List", new { contentItem.Id });
         }
     }
