@@ -8,7 +8,8 @@ namespace Iroo.VersionManager {
 
         public void GetNavigation(NavigationBuilder builder) {
             builder.Add(T("Content"), "2",
-                        menu => menu.Add(T("Recycle Bin"), "100", item => item.Action("ListDeleted", "Admin", new {area = "Iroo.VersionManager", id = ""})));
+                        menu => menu.Add(T("Recycle Bin"), "100", 
+                            item => item.Action("ListDeleted", "Admin", new {area = "Iroo.VersionManager", id = ""}).LocalNav()));
         }
     }
 }
