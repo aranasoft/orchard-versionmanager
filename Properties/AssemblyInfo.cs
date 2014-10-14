@@ -1,15 +1,16 @@
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+using System.Security;
 
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Iroo.VersionManager")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("Arana.VersionManager")]
+[assembly: AssemblyDescription("A Content Version Manager for OrchardCMS")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyProduct("Orchard")]
-[assembly: AssemblyCopyright("")]
+[assembly: AssemblyCopyright("Copyright © Arana Software 2014")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -19,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("6e613e09-311e-435e-8a43-7f225f85b2c7")]
+[assembly: Guid("50e6fbe9-91d8-4e79-96a2-952ed62da57f")]
 
 // Version information for an assembly consists of the following four values:
 //
@@ -30,5 +31,7 @@ using System.Runtime.InteropServices;
 //
 // You can specify all the values or you can default the Revision and Build Numbers 
 // by using the '*' as shown below:
-[assembly: AssemblyVersion("0.9.0.0")]
-[assembly: AssemblyFileVersion("0.9.0.0")]
+
+[assembly: AssemblyVersion("1.0.0.0")]
+[assembly: AssemblyFileVersion("1.0.0.0")]
+

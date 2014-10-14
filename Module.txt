@@ -1,10 +1,8 @@
-Name: Version Manager
+﻿Name: Version Manager
 AntiForgery: enabled
-Author: Renaud Paquay
-Website: http://IrooVersionManager.codeplex.com
-Version: 0.9.3
-OrchardVersion: 1.1.30
-Description: Provide admin UI to manage the revision history of content items (including previewing of any version), as well as a recycle bin to restore deleted content items. The list of versions can be accessed through a new "Versions" link in the "Content Items" admin page. The "Recycle Bin" menu is displayed under the "Content" admin menu item.
-Features:
-    Iroo.VersionManager:
-        Category: Content
+Author: Arana Software, Jay Harris
+Website: https://github.com/aranasoft/orchard-versionmanager
+Version: 1.0
+OrchardVersion: 1.8
+Description: View and Manage the revision history of content items, including deleted content. Based on Iroo.VersionManager by Renaud Paquay.
+Category: Content

@@ -1,7 +1,7 @@
 ﻿using Orchard.ContentManagement;
 using Orchard.ContentManagement.Drivers;
 
-namespace Iroo.VersionManager.Drivers {
+namespace Arana.VersionManager.Drivers {
     public class Driver : ContentPartDriver<ContentPart> {
         protected override DriverResult Display(ContentPart part, string displayType, dynamic shapeHelper) {
             if (displayType == "SummaryAdmin") {
