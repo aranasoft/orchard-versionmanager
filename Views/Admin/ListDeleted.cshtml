@@ -2,10 +2,8 @@
 @using Orchard.Localization
 @model IEnumerable<ContentItem>
 @{
-  LocalizedString pageTitle = T("Recycle Bin");
+  Layout.Title = T("Manage Trash").ToString();
 }
-
-<h1>@Html.TitleForPage(pageTitle)</h1>
 
 <p>@T("There is a total of {0} deleted content items.", Model.Count())</p>
 

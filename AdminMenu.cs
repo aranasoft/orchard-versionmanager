@@ -8,7 +8,7 @@ namespace Arana.VersionManager {
 
         public void GetNavigation(NavigationBuilder builder) {
             builder.Add(T("Content"),
-                        menu => menu.Add(T("Recycle Bin"), "100", 
+                        menu => menu.Add(T("Trash"), "100", 
                             item => item.Action("ListDeleted", "Admin", new {area = "Arana.VersionManager", id = ""}).LocalNav()));
         }
     }
