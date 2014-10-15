@@ -1,7 +1,7 @@
 ﻿@using Orchard.ContentManagement
 @using Orchard.ContentManagement.Records
 @using Orchard.Localization
-@model IEnumerable<ContentItem>
+@model IEnumerable<Orchard.ContentManagement.ContentItem>
 @{
   ContentItem contentItem = Model.First();
   LocalizedString pageTitle = T("Manage versions of content item #{0}", contentItem.Id);
@@ -50,8 +50,8 @@
                       <img class="icon" src="@Href("~/Modules/Arana.VersionManager/Content/Admin/images/uncheck.gif")" alt="@T("Published version")" title="@T("This is the published versions")" />
                     }
                     Published
-                    @T(" | ")
                   </li>
+                  <li>&nbsp;&#124;&nbsp;</li>
                   <li>
                     @if (item.VersionRecord.Latest) {
                       <img class="icon" src="@Href("~/Modules/Arana.VersionManager/Content/Admin/images/check.gif")" alt="@T("Latest version")" title="@T("This is the published versions")" />
@@ -68,17 +68,14 @@
             <div class="related">
               @if (item.VersionRecord.Published) {
                 @Html.Link(T("Unpublish").Text, Url.Action("UnsetPublishedVersion", "Admin", new {area = "Arana.VersionManager", id = item.VersionRecord.Id}))
-                ;
                 @T(" | ")
               }
               @if (!item.VersionRecord.Published) {
                 @Html.Link(T("Publish").Text, Url.Action("SetPublishedVersion", "Admin", new {area = "Arana.VersionManager", id = item.VersionRecord.Id}))
-                ;
                 @T(" | ")
               }
               @if (item.VersionRecord.Latest) {
                 @Html.Link(T("Remove").Text, Url.Action("Delete", "Admin", new {area = "Arana.VersionManager", id = item.VersionRecord.Id}))
-                ;
                 @T(" | ")
               }
               @Html.Link(T("View").Text, Url.Action("Preview", "Item", new {area = "Contents", id = item.Id, version = item.Version}))

@@ -1,5 +1,5 @@
-﻿@using Orchard.ContentManagement
-@using Orchard.Localization
+﻿@using Arana.VersionManager.Helpers
+@using Orchard.ContentManagement
 @model IEnumerable<ContentItem>
 @{
   Layout.Title = T("Manage Trash").ToString();
@@ -10,24 +10,25 @@
 <fieldset class="contentItems bulk-items">
   <ul>
     @foreach (ContentItem item in Model) {
+      string contentType = item.TypeDefinition.DisplayName ?? item.ContentType;
+      ContentItemMetadata metadata = item.ContentManager.GetItemMetadata(item);
+      string contentItemTitle = StringHelpers.NonNullOrEmpty(metadata.DisplayText, item.TypeDefinition.DisplayName, item.ContentType);
+
       <li>
         <div class="summary" itemscope="itemscope" itemid="@item.Id" itemtype="http://orchardproject.net/data/ContentItem">
           <div class="primary">
             <div class="properties">
-              <h3>@T("Item id {0} of type \"{1}\"", item.Id, (item.TypeDefinition.DisplayName ?? item.ContentType))</h3>
+              <h3>@Html.Link(contentItemTitle, Url.Action("Preview", "Item", new {area = "Contents", id = item.Id, version = item.Version}))</h3> - <div class="contentType">@contentType</div>
               <div class="metadata">
                 <ul class="pageStatus">
-                  <li>
-                  </li>
-                  <li>
-                  </li>
+                  <li>Id: @item.Id</li>
                 </ul>
               </div>
             </div>
             <div class="related">
-              @Html.Link(T("Undelete").Text, Url.Action("Undelete", "Admin", new {area = "Arana.VersionManager", id = item.VersionRecord.Id}))
+              @Html.Link(T("Preview").Text, Url.Action("Preview", "Item", new {area = "Contents", id = item.Id, version = item.Version}))
               @T(" | ")
-              @Html.Link(T("View").Text, Url.Action("Preview", "Item", new {area = "Contents", id = item.Id, version = item.Version}))
+              @Html.Link(T("Undelete").Text, Url.Action("Undelete", "Admin", new {area = "Arana.VersionManager", id = item.VersionRecord.Id}))
             </div>
           </div>
         </div>

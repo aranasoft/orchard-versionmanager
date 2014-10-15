@@ -92,6 +92,7 @@
     <Compile Include="AdminMenu.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Drivers\Driver.cs" />
+    <Compile Include="Helpers\StringHelpers.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Placement.info" />
