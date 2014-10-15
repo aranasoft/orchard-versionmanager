@@ -3,6 +3,7 @@ using System.Linq;
 using System.Web.Mvc;
 using Orchard;
 using Orchard.ContentManagement;
+using Orchard.Core.Contents;
 using Orchard.DisplayManagement;
 using Orchard.Localization;
 using Orchard.Logging;
@@ -54,6 +55,10 @@ namespace Arana.VersionManager.Controllers {
                 return HttpNotFound();
             }
 
+            if (!Services.Authorizer.Authorize(Permissions.PublishContent, contentItem, T("Cannot publish content"))) {
+                return new HttpUnauthorizedResult();
+            }
+
             Services.ContentManager.Publish(contentItem);
             Services.Notifier.Add(NotifyType.Information, T("Version {0} of content item published.", contentItem.Version));
             return RedirectToAction("List", new {contentItem.Id});
@@ -63,6 +68,10 @@ namespace Arana.VersionManager.Controllers {
             ContentItem contentItem = Services.ContentManager.Get(-1, VersionOptions.VersionRecord(id));
             if (contentItem == null) {
                 return HttpNotFound();
+            }
+
+            if (!Services.Authorizer.Authorize(Permissions.PublishContent, contentItem, T("Cannot un-publish content"))) {
+                return new HttpUnauthorizedResult();
             }
 
             Services.ContentManager.Unpublish(contentItem);
@@ -76,6 +85,11 @@ namespace Arana.VersionManager.Controllers {
                 return HttpNotFound();
             }
 
+            if (!Services.Authorizer.Authorize(Permissions.DeleteContent, contentItem, T("Cannot delete content"))) {
+                return new HttpUnauthorizedResult();
+            }
+
+
             Services.ContentManager.Remove(contentItem);
             Services.Notifier.Add(NotifyType.Information, T("Content item {0} has been deleted.", contentItem.Id));
             return RedirectToAction("ListDeleted");
@@ -85,6 +99,10 @@ namespace Arana.VersionManager.Controllers {
             ContentItem contentItem = Services.ContentManager.Get(-1, VersionOptions.VersionRecord(id));
             if (contentItem == null) {
                 return HttpNotFound();
+            }
+
+            if (!Services.Authorizer.Authorize(Permissions.PublishContent, contentItem, T("Cannot publish content"))) {
+                return new HttpUnauthorizedResult();
             }
 
             // Undelete and publish 

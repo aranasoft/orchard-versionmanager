@@ -79,7 +79,7 @@
                 @Html.Link(T("Remove").Text, Url.Action("Delete", "Admin", new {area = "Arana.VersionManager", id = item.VersionRecord.Id}))
                 @T(" | ")
               }
-              @if (Authorizer.Authorize(Permissions.PublishContent, item)) {
+              @if (Authorizer.Authorize(Permissions.ViewContent, item) && Authorizer.Authorize(Permissions.EditContent, item)) {
                 @Html.Link(T("View").Text, Url.Action("Preview", "Item", new {area = "Contents", id = item.Id, version = item.Version}))
               }
             </div>
