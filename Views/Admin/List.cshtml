@@ -1,5 +1,6 @@
 ﻿@using Orchard.ContentManagement
 @using Orchard.ContentManagement.Records
+@using Orchard.Core.Contents
 @using Orchard.Localization
 @model IEnumerable<Orchard.ContentManagement.ContentItem>
 @{
@@ -66,19 +67,21 @@
               </div>
             </div>
             <div class="related">
-              @if (item.VersionRecord.Published) {
+              @if (item.VersionRecord.Published && Authorizer.Authorize(Permissions.PublishContent, item)) {
                 @Html.Link(T("Unpublish").Text, Url.Action("UnsetPublishedVersion", "Admin", new {area = "Arana.VersionManager", id = item.VersionRecord.Id}))
                 @T(" | ")
               }
-              @if (!item.VersionRecord.Published) {
+              @if (!item.VersionRecord.Published && Authorizer.Authorize(Permissions.PublishContent, item)) {
                 @Html.Link(T("Publish").Text, Url.Action("SetPublishedVersion", "Admin", new {area = "Arana.VersionManager", id = item.VersionRecord.Id}))
                 @T(" | ")
               }
-              @if (item.VersionRecord.Latest) {
+              @if (item.VersionRecord.Latest && Authorizer.Authorize(Permissions.PublishContent, item)) {
                 @Html.Link(T("Remove").Text, Url.Action("Delete", "Admin", new {area = "Arana.VersionManager", id = item.VersionRecord.Id}))
                 @T(" | ")
               }
-              @Html.Link(T("View").Text, Url.Action("Preview", "Item", new {area = "Contents", id = item.Id, version = item.Version}))
+              @if (Authorizer.Authorize(Permissions.PublishContent, item)) {
+                @Html.Link(T("View").Text, Url.Action("Preview", "Item", new {area = "Contents", id = item.Id, version = item.Version}))
+              }
             </div>
           </div>
         </div>
