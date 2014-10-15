@@ -1,13 +1,14 @@
-﻿@using Orchard.ContentManagement;
-@using Orchard.Utility.Extensions;
+﻿@using Orchard.ContentManagement
+@using Orchard.Utility.Extensions
 @{
-    Script.Require("ShapesBase");
-    ContentPart contentPart = Model.ContentPart;
+  Script.Require("ShapesBase");
+  ContentPart contentPart = Model.ContentPart;
 }
 
 <ul class="pageStatus">
- <li>Id: @contentPart.ContentItem.Id&nbsp;&#124;&nbsp;</li>
- <li>
-   @Html.Link(T("Version: {0}", contentPart.ContentItem.Version).Text, Url.Action("List", "Admin", new { area = "Iroo.VersionManager", id = contentPart.ContentItem.Id, returnUrl = Request.ToUrlString() }))
-   &nbsp;&#124;&nbsp;
+  <li>Id: @contentPart.ContentItem.Id @T(" | ") </li>
+  <li>
+    @Html.Link(T("Version: {0}", contentPart.ContentItem.Version).Text, Url.Action("List", "Admin", new {area = "Arana.VersionManager", id = contentPart.ContentItem.Id, returnUrl = Request.ToUrlString()}))
+    @T(" | ")
+  </li>
 </ul>
